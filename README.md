@@ -1,14 +1,16 @@
 # Vue 3 + Typescript + Vite
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## .env文件
+  .env                    # 所有情况下都会加载
+  .env.local              # 所有情况下都会加载，但会被git忽略
+  .env.[mode]             # 只在指定模式下加载
+  .env.[mode].local       #只在指定模式下加载，但会被git忽略
+  这些文件中存放一些项目中需要用到的环境变量。
+  Vite 使用 dotenv 从你的 环境目录[.env] 中的下列文件加载额外的环境变量。
+  只有以 VITE_ 为前缀的变量才会暴露给经过 vite 处理的代码。
+  加载的环境变量也会通过 import.meta.env 暴露给客户端源码。
 
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
-
-## Type Support For `.vue` Imports in TS
-
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
-
-
-## yarn create vite my-vue-app --template vue-ts 创建仓库
+## 根目录下创建build文件夹
+  其内放置一些配置vite.config.ts文件相关的东西
+## 根目录下创建types文件夹
+  其内放置一些 ts 的类型
