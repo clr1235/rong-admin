@@ -4,7 +4,9 @@ import vue from '@vitejs/plugin-vue'
 // 支持ts的日期工具
 import { format } from 'date-fns'
 
+import { OUTPUT_DIR } from './build/constant';
 import { wrapperEnv } from './build/utils'
+import { createProxy } from './build/vite/proxy';
 import pkg from './package.json';
 
 const { dependencies, devDependencies, name, version } = pkg;
@@ -58,6 +60,34 @@ export default ({ command, mode }): UserConfig => {
           additionalData: `@import "src/styles/var.less";`,
         },
       },
+    },
+    // 开发服务器配置
+    server: {
+      host: true,
+      port: VITE_PORT,
+      proxy: createProxy(VITE_PROXY),
+    },
+    // 依赖优化配置
+    optimizeDeps: {
+      include: [],
+      exclude: ['vue-demi'],
+    },
+    // 打包构建配置
+    build: {
+      // 构建目标
+      target: 'es2015',
+      // 打包文件的输出路径，相对于根目录而言，默认为dist
+      outDir: OUTPUT_DIR,
+      terserOptions: {
+        compress: {
+          // keep_infinity设置为true方式无限压缩，导致Chrome上的性能问题
+          keep_infinity: true,
+          // 是否丢弃 console
+          drop_console: VITE_DROP_CONSOLE,
+        },
+      },
+      // chunk 大小警告的限制（以 kbs 为单位）
+      chunkSizeWarningLimit: 2000,
     },
   }
 }
