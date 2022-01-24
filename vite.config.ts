@@ -1,9 +1,9 @@
 import { UserConfig, ConfigEnv, loadEnv } from 'vite'
 import { resolve } from 'path';
-import vue from '@vitejs/plugin-vue'
 // 支持ts的日期工具
 import { format } from 'date-fns'
 
+import { createVitePlugins } from './build/vite/plugin';
 import { OUTPUT_DIR } from './build/constant';
 import { wrapperEnv } from './build/utils'
 import { createProxy } from './build/vite/proxy';
@@ -20,7 +20,7 @@ function pathResolve(dir: string) {
 }
 
 // 如果配置文件需要基于（dev/serve 或 build）命令或者不同的 模式 来决定选项，则可以选择导出这样一个函数
-export default ({ command, mode }): UserConfig => {
+export default ({ command, mode }: ConfigEnv): UserConfig => {
   // 开发环境下 command值为serve；生产环境下command值为build
   const root = process.cwd();
   const env = loadEnv(mode, root);
@@ -51,7 +51,7 @@ export default ({ command, mode }): UserConfig => {
     define: {
       __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
-    plugins: [vue()],
+    plugins: createVitePlugins(viteEnv, isBuild, prodMock),
     css: {
       preprocessorOptions: {
         less: {
