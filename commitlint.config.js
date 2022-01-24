@@ -22,7 +22,11 @@ module.exports = {
         'test', // 增加测试
         'chore', // 构建过程或辅助工具的变动
         'revert', // feat(pencil): add ‘graphiteWidth’ option (撤销之前的commit)
-        'merge' // 合并分支， 例如： merge（前端页面）： feature-xxxx修改线程地址
+        'merge', // 合并分支， 例如： merge（前端页面）： feature-xxxx修改线程地址
+        'perf', // 优化/性能提升
+        'workflow', //工作流改进
+        'types', // 类型定义文件更改
+        'wip', // 开发中
       ]
     ]
   }
