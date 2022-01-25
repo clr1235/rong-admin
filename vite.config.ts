@@ -29,7 +29,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     viteEnv;
   const prodMock = VITE_GLOB_PROD_MOCK;
   const isBuild = command === 'build';
-  console.log(env, 'viteEnv----', process.cwd())
   return {
     // 开发或生产环境服务的公共基础路径。默认为 /
     base: VITE_PUBLIC_PATH,
