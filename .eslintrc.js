@@ -27,6 +27,12 @@ module.exports = defineConfig({
     'plugin:prettier/recommended',
   ],
   rules: {
+    'prettier/prettier': [
+      'off',
+      { singleQuote: true, parser: 'flow' },
+      { usePrettierrc: false },
+    ],
+    'vue/multi-word-component-names': 'off',
     'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
