@@ -32,6 +32,8 @@ module.exports = defineConfig({
       { singleQuote: true, parser: 'flow' },
       { usePrettierrc: false },
     ],
+    // 关闭 template标签内必须有一个根元素的校验
+    'vue/valid-template-root': 'off',
     'vue/multi-word-component-names': 'off',
     'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/ban-ts-ignore': 'off',

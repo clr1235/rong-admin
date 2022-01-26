@@ -9,7 +9,7 @@
       :inverted="inverted"
       bordered
     >
-      <n-menu :inverted="inverted" :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" />
+      <AsideMenu />
     </n-layout-sider>
   </n-layout>
 </template>
@@ -18,11 +18,11 @@
 import { h, defineComponent, ref } from 'vue';
 import { NIcon } from 'naive-ui';
 import { BookOutline as BookIcon, PersonOutline as PersonIcon, WineOutline as WineIcon } from '@vicons/ionicons5';
+import { AsideMenu } from './components/AsideMenu';
 
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
-
 const menuOptions = [
   {
     label: '且听风吟',
@@ -99,6 +99,9 @@ const menuOptions = [
 ];
 
 export default defineComponent({
+  components: {
+    AsideMenu,
+  },
   setup() {
     return {
       inverted: ref(false),
