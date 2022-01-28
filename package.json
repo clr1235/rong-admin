@@ -11,7 +11,7 @@
   "dependencies": {
     "makeit-captcha": "^1.2.5",
     "mockjs": "^1.1.0",
-    "pinia": "^2.0.10",
+    "pinia": "^2.0.0-rc.10",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"
   },

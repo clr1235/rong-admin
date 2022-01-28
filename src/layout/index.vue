@@ -14,6 +14,16 @@
       <Logo :collapsed="collapsed" />
       <AsideMenu v-model:collapsed="collapsed" />
     </n-layout-sider>
+    <n-layout>
+      <n-layout-header bordered>
+        <Header class="layout-header" />
+      </n-layout-header>
+      <n-layout-content>
+        <div class="layout-main">
+          <Main />
+        </div>
+      </n-layout-content>
+    </n-layout>
   </n-layout>
 </template>
 
@@ -21,6 +31,8 @@
 import { ref } from 'vue';
 import { AsideMenu } from './components/AsideMenu';
 import { Logo } from './components/Logo';
+import { Header } from './components/Header';
+import { Main } from './components/Main';
 
 const collapsed = ref<boolean>(false);
 </script>
@@ -30,5 +42,9 @@ const collapsed = ref<boolean>(false);
   display: flex;
   flex-direction: row;
   flex: auto;
+  &-header {
+  }
+  &-main {
+  }
 }
 </style>

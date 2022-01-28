@@ -11,8 +11,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, h } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineComponent, h, ref, watchEffect } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { NIcon } from 'naive-ui';
 import { BookOutline as BookIcon } from '@vicons/ionicons5';
 
@@ -39,8 +39,10 @@ export default defineComponent({
   },
   emits: ['update:collapsed'],
   setup() {
+    // 当前路由
+    const currentRoute = useRoute();
     const router = useRouter();
-    const activeMenu = 'about';
+    let activeMenu = ref<string>(currentRoute.name || 'dashboard');
     // 读取所有路由
     const allRoutes = router.options.routes || [];
     // 从路由中读取菜单
@@ -59,8 +61,7 @@ export default defineComponent({
             menus.push({
               label: item.meta.title,
               key: item.name,
-              icon: item.meta.icon || renderIcon(BookIcon),
-              children: [],
+              children: null,
             });
           }
         }
@@ -68,9 +69,17 @@ export default defineComponent({
       return menus;
     };
     // 点击菜单
-    const clickMenuItem = (key, item) => {
-      console.log(key, 'key-=-=-=', item);
-    };
+    function clickMenuItem(key) {
+      if (/http(s)?:/.test(key)) {
+        window.open(key);
+      } else {
+        router.push({ name: key });
+      }
+    }
+    // 跟随页面路由变化，切换菜单选中状态
+    watchEffect(() => {
+      activeMenu.value = currentRoute.name;
+    });
     return {
       menuOptions: getMenus(allRoutes),
       activeMenu,

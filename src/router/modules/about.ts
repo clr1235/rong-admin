@@ -1,14 +1,14 @@
 import { RouteRecordRaw } from 'vue-router';
 
+const Layout = () => import('@/layout/index.vue');
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/about',
     name: 'about',
-    component: () => import('@/views/about/index.vue'),
+    component: Layout,
     meta: {
       sort: 10,
       isRoot: true,
-      activeMenu: 'about_index',
       isMenu: true,
       title: '关于',
     },
@@ -17,9 +17,8 @@ const routes: Array<RouteRecordRaw> = [
         path: 'index',
         name: `about_index`,
         meta: {
-          title: '关于首页',
+          title: '关于我',
           isMenu: true,
-          activeMenu: 'about_index',
         },
         component: () => import('@/views/about/index.vue'),
       },
