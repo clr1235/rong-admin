@@ -16,6 +16,8 @@ export default defineComponent({
     const themeOverrides: GlobalThemeOverrides = {
       common: {
         primaryColor: appTheme,
+        primaryColorHover: appTheme,
+        primaryColorPressed: appTheme,
       },
     };
     return {
