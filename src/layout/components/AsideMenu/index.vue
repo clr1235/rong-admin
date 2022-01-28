@@ -1,54 +1,80 @@
 <template>
-  <div ref="menu">侧边栏menu {{ m }}</div>
+  <n-menu
+    :collapsed="collapsed"
+    :mode="mode"
+    :value="activeMenu"
+    :collapsed-width="64"
+    :collapsed-icon-size="22"
+    :options="menuOptions"
+    @update:value="clickMenuItem"
+  />
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watchEffect } from 'vue';
+import { defineComponent, h } from 'vue';
+import { useRouter } from 'vue-router';
+import { NIcon } from 'naive-ui';
+import { BookOutline as BookIcon } from '@vicons/ionicons5';
 
+function renderIcon(icon) {
+  return () => h(NIcon, null, { default: () => h(icon) });
+}
 export default defineComponent({
-  setup(props, { attrs, slots, emit, expose }) {
-    // console.log(props, 'props===>>>');
-    // attrs（非响应式对象，等同于attrs）
-    // console.log(attrs, 'attrs===>>>');
-    // 插槽（非响应式对象，等同于slots）
-    // console.log(slots, 'slots===>>>');
-    // 触发事件（方法，等同于emit）
-    // console.log(emit, 'emit===>>>');
-    // 暴露公共的 property （是个函数）
-    // console.log(expose, 'expose===>>>');
-    /**
-      因为 setup 是围绕 beforeCreate 和 created 生命周期钩子运行的，所以不需要显式地定义它们。
-      换句话说，在这些钩子中编写的任何代码都应该直接在 setup 函数中编写。
-      这些函数接受一个回调函数，当钩子被组件调用时将会被执行
-    */
-    // onBeforeMount(() => {
-    //   console.log('onBeforeMount is used');
-    // });
-    const menu = ref(null);
-    const m = 'ususu';
-    onMounted(() => {
-      console.log(menu, 'onMounted-=-=----');
-    });
-    watchEffect(
-      () => {
-        console.log(menu.value, 'ref------');
-      },
-      {
-        flush: 'post',
+  components: {},
+  props: {
+    collapsed: {
+      type: Boolean,
+      default: false,
+    },
+    mode: {
+      // 菜单模式
+      type: String,
+      default: 'vertical',
+    },
+    //位置
+    location: {
+      type: String,
+      default: 'left',
+    },
+  },
+  emits: ['update:collapsed'],
+  setup() {
+    const router = useRouter();
+    const activeMenu = 'about';
+    // 读取所有路由
+    const allRoutes = router.options.routes || [];
+    // 从路由中读取菜单
+    const getMenus = (arr) => {
+      const menus = [];
+      for (let item of arr) {
+        if (item.meta.isMenu) {
+          if (item?.children?.length > 0) {
+            menus.push({
+              label: item.meta.title,
+              key: item.name,
+              icon: item.meta.icon || renderIcon(BookIcon),
+              children: getMenus(item.children),
+            });
+          } else {
+            menus.push({
+              label: item.meta.title,
+              key: item.name,
+              icon: item.meta.icon || renderIcon(BookIcon),
+              children: [],
+            });
+          }
+        }
       }
-    );
-    // onBeforeUpdate(() => {});
-    // onUpdated(() => {});
-    // onBeforeUnmount(() => {});
-    // onUnmounted(() => {});
-    // onErrorCaptured(() => {});
-    // onRenderTracked(() => {});
-    // onRenderTriggered(() => {});
-    // onActivated(() => {});
-    // onDeactivated(() => {});
+      return menus;
+    };
+    // 点击菜单
+    const clickMenuItem = (key, item) => {
+      console.log(key, 'key-=-=-=', item);
+    };
     return {
-      menu,
-      m,
+      menuOptions: getMenus(allRoutes),
+      activeMenu,
+      clickMenuItem,
     };
   },
 });

@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     NLayout: typeof import('naive-ui')['NLayout']
     NLayoutSider: typeof import('naive-ui')['NLayoutSider']
+    NMenu: typeof import('naive-ui')['NMenu']
   }
 }
 

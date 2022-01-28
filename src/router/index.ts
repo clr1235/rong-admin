@@ -33,9 +33,10 @@ const baseRoutes: RouteRecordRaw[] = [
 ];
 
 // 创建路由
+export const allRoutes = [...baseRoutes, ...routeModuleList];
 const router = createRouter({
   history: createWebHistory(),
-  routes: [...baseRoutes, ...routeModuleList],
+  routes: allRoutes,
   strict: true,
   scrollBehavior: () => ({ left: 0, top: 0 }),
 });
