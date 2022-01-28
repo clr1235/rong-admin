@@ -62,7 +62,6 @@ export default defineComponent({
             menus.push({
               label: item.meta.title,
               key: item.name,
-              children: null,
             });
           }
         }
