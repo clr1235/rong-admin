@@ -8,6 +8,7 @@
       :width="240"
       :native-scrollbar="false"
       bordered
+      inverted
       @collapse="collapsed = true"
       @expand="collapsed = false"
     >

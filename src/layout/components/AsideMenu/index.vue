@@ -6,6 +6,7 @@
     :collapsed-width="64"
     :collapsed-icon-size="22"
     :options="menuOptions"
+    inverted
     @update:value="clickMenuItem"
   />
 </template>
